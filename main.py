@@ -5,8 +5,7 @@ import pygame as py
 import json
 #hello
 #something
-
-
+print("Hello world")
 py.init()
 class Pieces:
     def __init__(self):
@@ -107,3 +106,4 @@ while loop:
     pieces.drawPieces()
     py.display.flip()
 py.quit()
+#hello world
