@@ -1,0 +1,21 @@
+Dict = {"White":
+    {
+        "R": "C:\ChessV2\Player1\White1.png",
+        "KN": "C:\ChessV2\Player1\White2.png",
+        "B": "C:\ChessV2\Player1\White3.png",
+        "K": "C:\ChessV2\Player1\White4.png",
+        "Q": "C:\ChessV2\Player1\White5.png",
+        "P": "C:\ChessV2\Player1\White6.png"
+
+    },
+    "Black":
+        {
+            "p": "C:\ChessV2\Player2\Dark1.png",
+            "r": "C:\ChessV2\Player2\Dark2.png",
+            "kn": "C:\ChessV2\Player2\Dark3.png",
+            "b": "C:\ChessV2\Player2\Dark4.png",
+            "k": "C:\ChessV2\Player2\Dark5.png",
+            'q': "C:\ChessV2\Player2\Dark6.png"
+        }
+
+}
