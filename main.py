@@ -3,8 +3,6 @@ import os
 import pygame
 import pygame as py
 import json
-#hello
-#something
 print("Hello world")
 py.init()
 class Pieces:
