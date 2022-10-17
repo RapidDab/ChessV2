@@ -4,6 +4,9 @@ import pygame
 import pygame as py
 import json
 #hello
+#something
+
+
 py.init()
 class Pieces:
     def __init__(self):
