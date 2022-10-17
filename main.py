@@ -1,8 +1,5 @@
-import os
-
+import os as os 
 import pygame as py
-import json
-#Hello world
 py.init()
 class Pieces:
     def __init__(self):
@@ -66,14 +63,29 @@ class GameLogic(Pieces):
         self.k = []
         self.q = []
         self.p = []
-        self.moves = [[0, 100], [0, -100], [100, 100], [-100, 100], [100, -100], [-100, -100]]
+        self.moves = [[0, 100], [0, -100], [100, 0], [-100, 0], [100, 100], [-100, 100], [100, -100], [-100, -100]]
         self.piecesToMove = ""
-        
+    def checkBoundaries(self, move, cor):
+        x = move[0]+cor[0] if move[0]+cor[0] >=0 else cor[0]
+        y = move[1]+cor[1] if move[1] + cor[1] <= 0 else cor[0]
+        return [x, y]
+    def checkOtherPieces(self,move, cor):
+        state = True
+        for i in self.gameCor:
+            if move[0] + cor[0] == i[1] and move[1]+ cor[1] != i[2]:
+                state = False 
+        return state
+    def makeMove(self, moves, currentPlayercor):
+        x = moves[0]+ currentPlayercor[0]
+        y = moves[1] + currentPlayercor[1]
+        return [x, y] 
     def legalMoves(self):
         cor = [self.gameCor[movePiece][1], self.gameCor[movePiece][2]]
         if self.piecesToMove.islower():
             if self.piecesToMove == "k":
-                print(cor)
+                for i in self.moves:
+                    print(self.checkBoundaries(i, cor))
+                    
 
 
 # Loading screen variable and the bacground image
@@ -116,7 +128,7 @@ while loop:
                 try:
                     chess.gameCor[movePiece][1] = round(end_x - 50, -2)
                     chess.gameCor[movePiece][2] = round(end_y - 50, -2)
-                    movePiece = None
+                    # movePiece = None
                 except:
                     pass
     screen.blit(bg, (0, 0))
