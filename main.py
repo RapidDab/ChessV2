@@ -94,25 +94,23 @@ class GameLogic(Pieces):
         playerlist = self.checkWhichPlayer()
         playerx, playery = currentCor[0], currentCor[1]
         for playerInfo in playerlist:
-            piecex, piecey = playerInfo[1], playerInfo[2]
-            if currentLegalMove == [piecex, piecey]:
-                state = False
+            if playerInfo[0] != currentCor[0] and playerInfo[1] !=currentCor[1]:
+                piecex, piecey = playerInfo[1], playerInfo[2]
+                if currentLegalMove == [piecex, piecey]:
+                    state = False
         return state
             
     def checkBoundares(self, move, cor):
         x = cor[0] + move[0]
         y = cor[1] + move[1]
-        try:
-            if x < 0:
-                x = None
-            if y < 0:
-                y = None
-            if x > 700:
-                x = None
-            if y > 700:
-                y = None
-        except:
-            return cor
+        if x < 0:
+            x = cor[0]
+        if y < 0:
+            y = cor[1]
+        if x > 700:
+            x = cor[0]
+        if y > 700:
+            y = cor[1]
         return [x, y]
     def legalMoves(self, cor):
         x = cor[0]
@@ -122,7 +120,9 @@ class GameLogic(Pieces):
                 for move in self.moves:
                     if self.checkCurrentPlayer(self.checkBoundares(move, cor), cor):
                         self.k.append([x + move[0], y+move[1]])
-        print("Legalmove cor: " + str(cor))      
+            print(self.gameCor)
+
+        print("Legalmove move: " + str(self.k))      
     def eraseLegalMoves(self):
         for pieceLegalMoves in self.masterList:
             if pieceLegalMoves != []:
@@ -130,13 +130,21 @@ class GameLogic(Pieces):
 class UI(GameLogic):
     def __init__(self):
         super().__init__()
+        self.size = 100
+    def drawAlphaRect(self, color, cor, alpha):
+        s = py.Surface((self.size, self.size))
+        s.set_alpha(alpha)
+        s.fill(color)
+        screen.blit(s, cor)
     def drawLegalMoves(self, legalPieceMove):
         color = (255,255,0)
         if clicked == True:
             for i in legalPieceMove:
                 if i != [None, None]:
-                    py.draw.rect(screen, color, py.Rect(i[0], i[1], 100, 100))
-            py.draw.rect(screen, (255, 0, 0), py.Rect(round(startX-50, -2), round(starty-50, -2), 100, 100))
+                    self.drawAlphaRect((255, 255, 255), (i[0], i[1]), 200)
+            x, y = round(startX-50, -2), round(starty-50, -2)
+            self.drawAlphaRect((240, 29, 0), (x, y), 255)
+            # py.draw.rect(screen, (255, 0, 0), py.Rect(round(startX-50, -2), round(starty-50, -2), 100, 100))
 
 # Loading screen variable and the bacground image
 screen = py.display.set_mode((800, 800))
@@ -180,7 +188,7 @@ while loop:
                 clicked = False
                 end_x, end_y = event.pos
                 try:
-                    print(chess.k, [round(end_x-50, -2), round(end_y-50, -2)])
+                    # print(chess.k, [round(end_x-50, -2), round(end_y-50, -2)])
                     if [round(end_x-50, -2), round(end_y-50, -2)] in chess.getCurrentPieceLegalMoves(chess.piecesToMove):
                         chess.gameCor[movePiece][1] = round(end_x - 50, -2)
                         chess.gameCor[movePiece][2] = round(end_y - 50, -2)
